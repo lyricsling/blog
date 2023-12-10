@@ -1,4 +1,4 @@
-baseURL = 'http://llx.org/'
+baseURL = 'https://lyricsling.github.io/blog/'
 defaultContentLanguage = "zh-cn"
 languageCode = 'zh-cn'
 title = '幻想涟漪'
