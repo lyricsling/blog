@@ -3,6 +3,7 @@ title: "hugo安装与配置"
 date: 2023-04-16T22:46:30+08:00
 type: "post"
 showTableOfContents: true
+tags: ["博客配置"]
 ---
 
 # Hugo 安装
@@ -12,7 +13,7 @@ showTableOfContents: true
 	Hugo new site [site_name]
 	cd [site_name]
 	
-输入命令后，hugo 会为我们生成名为 site_name 的目录，目录下包含 hugo 所需的结构。
+输入命令后，hugo 会为我们生成名为 [site_name] 的目录，目录下包含 hugo 所需的结构。
 
 	
 ## Hugo 创建新文章
@@ -20,7 +21,7 @@ showTableOfContents: true
 	hugo new posts/first_post.md
 	
 	
-输入命令后， hugo 会生成名为 site_name/content/posts/ 的目录。 并在目录中生成 first_post.md 文件。即可打开编辑器对此文件进行编辑。
+输入命令后， hugo 会生成名为 [site_name]/content/posts/ 的目录。 并在目录中生成 first_post.md 文件。即可打开编辑器对此文件进行编辑。
 
 注意：删除 draft 字段，非草稿文档才可以在网页中正常渲染。
 	
@@ -110,14 +111,16 @@ Hugo 有许多别人创建好的各式各样的主题。
 ### 部署
 我采用的方案是使用 github 的 page 和 action 功能进行自动部署。
 
-先在github 上创建一个新仓库，用于保存我们的 hugo 框架内容。
+#### 创建仓库
+先在 github 上创建一个新仓库，用于保存我们的 hugo 内容。
 
 注意：新建的仓库一定要是 public 的，github 对 private 仓库使用部署功能是需要收费的。
 
 在仓库设置界面中进行如下设置，设置 Workflow permissions 为 Read and write permissions。
 
-{{< figure src="imgs/actionset.png" width="70%" >}}
+{{< figure src="imgs/actionset.png" width="100%" >}}
 
+#### 远程仓库与本地仓库连接
 ```bash
 # 先进入 hugo 根目录
 cd ~/blog
@@ -136,14 +139,15 @@ git commit
 # 添加远程仓库
 git remote add origin 'git@github.com:yourusername/blog.git'
 
-# git push origin main
+# 推送至远程仓库
+git push origin main
 ```
 
-**添加自动部署配置文件**
+#### 添加自动部署配置文件
 
 在 hugo 根目录下创建文件 .github/Workflow/hugo.yaml
 
-加入如下内容
+加入如下内容：
 ```
 # Sample workflow for building and deploying a Hugo site to GitHub Pages
 name: Deploy Hugo site to Pages
@@ -224,6 +228,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v3
 ```
+
 内容挺多，下面做一些简短的介绍。
 
 第一个值得注意的代码段是：
@@ -236,20 +241,23 @@ on:
 ```
 它表示在向 main 分支 push 内容时触发部署操作。
 
-接下来值得注意的就是 jobs 之后的内容。
+接下来值得注意的就是 jobs 之后的内容：
 
-step 下每一个 name 都是一个步骤。
 ```
 step:
     - name: Install Hugo CLI
     ...
-    - name: another step
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
 ```
-
-```
-    -name: xxx
-    uses: actions/upload-pages-artifact@v2
-```
-其中 uses 是使用 github 上别人已经写好的一些执行步骤。
+step 下每一个 name 都是一个步骤。其中 uses 是使用 github 上别人已经写好的一些执行步骤。
 
 最后，提交.github/Workflow/hugo.yaml 文件后，github即可进行自动部署了。
+
+#### 提交
+提交完成后，在 github 上会多一个 action 提示。黄色圆圈表示正在进行部署操作中。
+{{< figure src="imgs/autoact.png" width="90%" >}}
+
+他生成的 url 如下，点击 url 就可访问我们的网站了。
+{{< figure src="imgs/url.png" width="90%" >}}
+
