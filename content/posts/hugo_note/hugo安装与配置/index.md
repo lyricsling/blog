@@ -116,6 +116,10 @@ Hugo 有许多别人创建好的各式各样的主题。
 
 注意：新建的仓库一定要是 public 的，github 对 private 仓库使用部署功能是需要收费的。
 
+设置仓库的 page 属性，选择 source 为 Github actions。
+
+{{< figure src="imgs/pageset.png" width="100%" >}}
+
 在仓库设置界面中进行如下设置，设置 Workflow permissions 为 Read and write permissions。
 
 {{< figure src="imgs/actionset.png" width="100%" >}}
