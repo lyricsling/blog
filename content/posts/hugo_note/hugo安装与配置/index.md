@@ -265,3 +265,11 @@ step 下每一个 name 都是一个步骤。其中 uses 是使用 github 上别�
 他生成的 url 如下，点击 url 就可访问我们的网站了。
 {{< figure src="imgs/url.png" width="90%" >}}
 
+### 拉取博客到本地
+拉取博客代码到本地后，输入 hugo server，发现网站启动失败。
+
+原因：hugo 主题文件是以子项目的方式存在于 git 中。拉取代码的时候并未拉取子项目，需要输入如下代码手动拉取
+```
+git submodule update
+```
+
