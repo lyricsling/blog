@@ -1,7 +1,6 @@
 ---
 title: "Git_note"
 date: 2024-09-29T15:43:12+08:00
-draft: true
 type: "post"
 showTableOfContents: true
 ---
