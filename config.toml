@@ -5,6 +5,9 @@ title = '幻想涟漪'
 
 theme = "gokarna"
 
+[permalinks]
+  posts = "/posts/:slug.html"
+
 [menu]
   [[menu.main]]
     # Unique identifier for a menu item
